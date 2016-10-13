@@ -19,11 +19,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var numberOfRows:CGFloat!
     var numberOfColumns: CGFloat!
     
+    var imageSlices: [UIImage] = []
+    
     func configureLayout() {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         
-        CatPuzzleAttributes.defaultAttributes()
+//        CatPuzzleAttributes.defaultAttributes()
         
         numberOfRows = 4
         numberOfColumns = 3
@@ -43,17 +45,22 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         self.collectionView?.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         self.collectionView?.register(FooterReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         configureLayout()
+        for i in 1...12 {
+            imageSlices.append(UIImage.init(named: "\(i)")!)
+        }
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return imageSlices.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = self.collectionView?.dequeueReusableCell(withReuseIdentifier: "puzzleCell", for: indexPath) as! CollectionViewCell
         
-        cell.imageView.image = UIImage(named: "cats")
+        
+        cell.imageView.image = imageSlices[indexPath.item]
         
         return cell
         
@@ -102,15 +109,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 }
 
 
-struct CatPuzzleAttributes {
+//struct CatPuzzleAttributes {
+//    
+//    static func defaultAttributes() -> CatPuzzleAttributes {
+//        
+//        
+//    }
+//    
+//    var height: Double
+
     
-    static func defaultAttributes() -> CatPuzzleAttributes {
-        
-        
-    }
     
-    var height: Double
-    
-    
-    
-}
+//}
